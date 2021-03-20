@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.github.ovelhaverde.deliverycalculator"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation project(":di")
+    implementation project(":navigation")
+
+    implementation libraries.kotlin_stdlib
+    implementation libraries.core_ktx
+    implementation libraries.androidx_appcompat
+    implementation libraries.material
+    implementation libraries.androidx_constraintlayout
+    implementation libraries.koin
+    implementation libraries.koin_ext
+    implementation libraries.koin_scope
+    implementation libraries.koin_viewmodel
+    implementation libraries.koin_fragment
+    implementation libraries.koin_workmanager
+    implementation libraries.lifecycle_viewmodel
+    implementation libraries.navigation_fragment
+    implementation libraries.navigation_ui
+
+    implementation testLibraries.junit
+    implementation testLibraries.junit_ext
+    implementation testLibraries.espresso
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+}

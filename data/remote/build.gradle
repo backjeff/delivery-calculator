@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation project(":data")
+
+    implementation libraries.kotlin_stdlib
+    implementation libraries.gson
+    implementation libraries.retrofit
+    implementation libraries.retrofit_gson_converter
+//    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+//    implementation libraries.okhttp3
+    implementation libraries.okhttp3_logging_interceptor
+    implementation libraries.kotlinx_coroutines
+    implementation libraries.koin
+    implementation libraries.koin_ext
+
+}

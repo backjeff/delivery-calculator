@@ -1,0 +1,10 @@
+include ':feature:splashscreen'
+include ':data:remote'
+include ':di'
+include ':domain'
+include ':feature:account'
+include ':feature'
+include ':navigation'
+include ':data'
+include ':app'
+rootProject.name = "OvelhaVerdeDeliveryCalculator"
