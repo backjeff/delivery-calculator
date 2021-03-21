@@ -1,6 +1,7 @@
 package com.github.ovelhaverde.deliverycalculator.distancesearch
 
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import com.github.ovelhaverde.deliverycalculator.distancesearch.databinding.FragmentDistanceSearchBinding
@@ -47,6 +48,13 @@ class DistanceSearchFragment
                 origin = binding.origin.text.toString(),
                 destination = binding.destination.text.toString(),
             )
+        }
+
+        binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            when (isChecked) {
+                true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
     }
 
