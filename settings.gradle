@@ -1,3 +1,4 @@
+include ':feature:distancesearch'
 include ':feature:splashscreen'
 include ':data:remote'
 include ':di'

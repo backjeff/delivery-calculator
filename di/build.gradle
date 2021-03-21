@@ -47,6 +47,8 @@ dependencies {
     implementation project(":navigation")
     implementation project(":feature")
     implementation project(":feature:account")
+    implementation project(":feature:splashscreen")
+    implementation project(":feature:distancesearch")
 
     implementation project(":domain")
     implementation project(":data")
