@@ -28,30 +28,17 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = '1.8'
     }
 }
 
 dependencies {
 
+    implementation project(":data")
+
     implementation libraries.kotlin_stdlib
     implementation libraries.core_ktx
+    implementation libraries.kotlinx_coroutines
     implementation libraries.koin
     implementation libraries.koin_ext
-    implementation libraries.koin_scope
-    implementation libraries.koin_viewmodel
-    implementation libraries.koin_fragment
-    implementation libraries.koin_workmanager
-    implementation libraries.lifecycle_viewmodel
-
-    implementation project(":navigation")
-    implementation project(":feature")
-    implementation project(":feature:account")
-    implementation project(":feature:splashscreen")
-    implementation project(":feature:distancesearch")
-
-    implementation project(":domain")
-    implementation project(":data")
-    implementation project(":data:remote")
-    implementation project(":data:local")
 }

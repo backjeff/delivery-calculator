@@ -23,12 +23,13 @@ class AppApplication : Application() {
                     dataModule,
                     dataRemoteModule,
                     navigationModule,
-                    featureModule
+                    featureModule,
+                    dataLocalModule
                 )
             ).androidContext(applicationContext)
         }
 
-        defineTheme()
+//        defineTheme()
     }
 
     private fun defineTheme() {

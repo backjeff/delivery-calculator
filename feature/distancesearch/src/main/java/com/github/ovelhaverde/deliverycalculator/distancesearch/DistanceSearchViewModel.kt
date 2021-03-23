@@ -4,15 +4,21 @@ import android.app.Application
 import androidx.lifecycle.asLiveData
 import com.github.overlhaverde.deliverycalculator.domain.interactor.FormatDistanceResponseUseCase
 import com.github.overlhaverde.deliverycalculator.domain.interactor.GetDistanceUseCase
+import com.github.overlhaverde.deliverycalculator.domain.interactor.darkmode.GetDarkModeUseCase
+import com.github.overlhaverde.deliverycalculator.domain.interactor.darkmode.SetDarkModeUseCase
+import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.GetDistanceSearchFormDataUseCase
+import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.SetDestinationUseCase
+import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.SetKmPriceUseCase
+import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.SetOriginUseCase
 import com.github.overlhaverde.deliverycalculator.domain.model.distance.DistanceSearch
+import com.github.overlhaverde.deliverycalculator.domain.model.distance.DistanceSearchFormData
 import com.github.overlhaverde.deliverycalculator.feature.base.BaseViewModel
 import com.github.overlhaverde.deliverycalculator.feature.core.ViewState
 import com.github.overlhaverde.deliverycalculator.feature.core.ViewState.Neutral
-import com.github.overlhaverde.deliverycalculator.feature.extensions.getString
 import com.github.overlhaverde.deliverycalculator.feature.extensions.postError
 import com.github.overlhaverde.deliverycalculator.feature.extensions.postSuccess
+import com.github.overlhaverde.deliverycalculator.feature.extensions.removeCurrencyMask
 import com.github.overlhaverde.deliverycalculator.feature.extensions.useCase
-import com.github.overlhaverde.deliverycalculator.feature.util.MoneyMask
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.koin.core.component.KoinComponent
@@ -23,6 +29,12 @@ class DistanceSearchViewModel(
 
     private val getDistanceUseCase: GetDistanceUseCase by useCase()
     private val formatDistanceResponseUseCase: FormatDistanceResponseUseCase by useCase()
+    private val getDarkModeUseCase: GetDarkModeUseCase by useCase()
+    private val setDarkModeUseCase: SetDarkModeUseCase by useCase()
+    private val getDistanceSearchFormDataUseCase: GetDistanceSearchFormDataUseCase by useCase()
+    private val setOriginUseCase: SetOriginUseCase by useCase()
+    private val setDestinationUseCase: SetDestinationUseCase by useCase()
+    private val setKmPriceUseCase: SetKmPriceUseCase by useCase()
 
     private val _distanceSearch = MutableStateFlow<ViewState<DistanceSearch>>(Neutral)
     val distanceSearch = _distanceSearch.asStateFlow().asLiveData()
@@ -30,27 +42,75 @@ class DistanceSearchViewModel(
     private val _price = MutableStateFlow<ViewState<FormatDistanceResponseUseCase.Response>>(Neutral)
     val price = _price.asStateFlow().asLiveData()
 
-    fun getDistance(
+    private val _darkMode = MutableStateFlow<ViewState<Boolean>>(Neutral)
+    val darkMode = _darkMode.asStateFlow().asLiveData()
+
+    private val _distanceSearchFormData = MutableStateFlow<ViewState<DistanceSearchFormData>>(Neutral)
+    val distanceSearchFormData = _distanceSearchFormData.asStateFlow().asLiveData()
+
+    init {
+        getDarkModeUseCase(
+            onSuccess = { _darkMode.postSuccess(it) }
+        )
+        getDistanceSearchFormDataUseCase(
+            onSuccess = { _distanceSearchFormData.postSuccess(it) }
+        )
+    }
+
+    fun setDarkMode(enabled: Boolean) {
+        setDarkModeUseCase(
+            params = SetDarkModeUseCase.Params(enabled),
+            onSuccess = { _darkMode.postSuccess(enabled) }
+        )
+    }
+
+    fun setOrigin(data: String) {
+        setOriginUseCase(
+            params = SetOriginUseCase.Params(data)
+        )
+    }
+
+    fun setDestination(data: String) {
+        setDestinationUseCase(
+            params = SetDestinationUseCase.Params(data)
+        )
+    }
+
+    fun setKmPrice(data: String) {
+        data.removeCurrencyMask()?.let {
+            setKmPriceUseCase(
+                params = SetKmPriceUseCase.Params(it)
+            )
+        }
+    }
+
+    fun getPrice(
         origin: String,
         destination: String,
+        kmPrice: String,
     ) {
         getDistanceUseCase(
             params = GetDistanceUseCase.Params(
                 origins = origin,
                 destinations = destination
             ),
-            onSuccess = { _distanceSearch.postSuccess(it) },
+            onSuccess = {
+                getPriceFormatted(
+                    kmPrice = kmPrice,
+                    distanceSearch = it
+                )
+            },
             onError = { _distanceSearch.postError(it) }
         )
     }
 
-    fun getPriceFormatted(
+    private fun getPriceFormatted(
         kmPrice: String,
         distanceSearch: DistanceSearch
     ) {
         formatDistanceResponseUseCase(
             params = FormatDistanceResponseUseCase.Params(
-                kmPrice = formatKmPrice(kmPrice),
+                kmPrice = kmPrice.removeCurrencyMask()?.toDouble(),
                 distanceSearch = distanceSearch
             ),
             onSuccess = { _price.postSuccess(it) },
@@ -58,5 +118,4 @@ class DistanceSearchViewModel(
         )
     }
 
-    private fun formatKmPrice(kmPrice: String) = runCatching { MoneyMask.unmask(kmPrice).toDouble() }.getOrNull()
 }

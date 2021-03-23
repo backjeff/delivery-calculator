@@ -3,6 +3,7 @@ package com.github.ovelhaverde.deliverycalculator.distancesearch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
 import com.github.ovelhaverde.deliverycalculator.distancesearch.databinding.FragmentDistanceSearchBinding
 import com.github.overlhaverde.deliverycalculator.feature.base.BaseFragment
@@ -16,15 +17,18 @@ class DistanceSearchFragment
 
     override fun addObservers(owner: LifecycleOwner) {
         with(viewModel) {
-            distanceSearch.onPostValue(
+            distanceSearchFormData.onPostValue(
                 lifecycleOwner = viewLifecycleOwner,
-                onSuccess = { distanceSearch ->
-                    viewModel.getPriceFormatted(
-                        kmPrice = binding.kmPrice.text.toString(),
-                        distanceSearch = distanceSearch
-                    )
-                }
+                onSuccess = { formData ->
+                    binding.origin.setText(formData.origin)
+                    binding.destination.setText(formData.destination)
+                    binding.kmPrice.setText(formData.kmPrice)
+                    binding.kmPrice.setupViewAsMoney()
+                },
+                onComplete = { setupFormTextChangedListener() }
             )
+
+            distanceSearch.onPostValue(viewLifecycleOwner)
 
             price.onPostValue(
                 lifecycleOwner = viewLifecycleOwner,
@@ -34,27 +38,47 @@ class DistanceSearchFragment
                     binding.responseLayout.isVisible = true
                 }
             )
+
+            darkMode.onPostValue(
+                lifecycleOwner = viewLifecycleOwner,
+                onSuccess = { enableDarkMode(it) }
+            )
         }
     }
 
     override fun setupView() {
-        binding.origin.setText("Igarapé MG")
-        binding.destination.setText("Betim MG")
-        binding.kmPrice.setText("R$ 1.40")
-        binding.kmPrice.setupViewAsMoney()
 
         binding.searchButton.setOnClickListener {
-            viewModel.getDistance(
+            viewModel.getPrice(
                 origin = binding.origin.text.toString(),
                 destination = binding.destination.text.toString(),
+                kmPrice = binding.kmPrice.text.toString(),
             )
         }
 
         binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            when (isChecked) {
-                true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            viewModel.setDarkMode(isChecked)
+        }
+    }
+
+    private fun setupFormTextChangedListener() {
+        binding.origin.addTextChangedListener { viewModel.setOrigin(it.toString()) }
+        binding.destination.addTextChangedListener { viewModel.setDestination(it.toString()) }
+        binding.kmPrice.run {
+            setOnKeyListener { _, _, _ ->
+                viewModel.setKmPrice(binding.kmPrice.text.toString())
+                false
             }
+//            addTextChangedListener { viewModel.setKmPrice(it.toString()) }
+            setupViewAsMoney()
+        }
+    }
+
+    private fun enableDarkMode(enabled: Boolean) {
+        binding.darkModeSwitch.isChecked = enabled
+        when (enabled) {
+            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 

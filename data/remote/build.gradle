@@ -15,8 +15,6 @@ dependencies {
     implementation libraries.gson
     implementation libraries.retrofit
     implementation libraries.retrofit_gson_converter
-//    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
-//    implementation libraries.okhttp3
     implementation libraries.okhttp3_logging_interceptor
     implementation libraries.kotlinx_coroutines
     implementation libraries.koin
