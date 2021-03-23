@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation project(":di")
     implementation project(":navigation")
+    implementation project(":styles")
 
     implementation libraries.androidx_legacy_support
     implementation libraries.kotlin_stdlib

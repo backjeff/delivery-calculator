@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Delivery Calculator</string>
+    <string name="default_currency_formatter" translatable="false">%1$s</string>
+</resources>

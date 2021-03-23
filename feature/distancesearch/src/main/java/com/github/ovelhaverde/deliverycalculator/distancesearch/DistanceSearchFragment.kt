@@ -1,5 +1,6 @@
 package com.github.ovelhaverde.deliverycalculator.distancesearch
 
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -7,7 +8,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
 import com.github.ovelhaverde.deliverycalculator.distancesearch.databinding.FragmentDistanceSearchBinding
 import com.github.overlhaverde.deliverycalculator.feature.base.BaseFragment
-import com.github.overlhaverde.deliverycalculator.feature.extensions.setupViewAsMoney
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DistanceSearchFragment
@@ -20,9 +20,9 @@ class DistanceSearchFragment
             distanceSearchFormData.onPostValue(
                 lifecycleOwner = viewLifecycleOwner,
                 onSuccess = { formData ->
-                    binding.origin.setText(formData.origin)
-                    binding.destination.setText(formData.destination)
-                    binding.kmPrice.setText(formData.kmPrice)
+                    binding.origin.text = formData.origin
+                    binding.destination.text = formData.destination
+                    binding.kmPrice.text = formData.kmPrice
                     binding.kmPrice.setupViewAsMoney()
                 },
                 onComplete = { setupFormTextChangedListener() }
@@ -47,12 +47,11 @@ class DistanceSearchFragment
     }
 
     override fun setupView() {
-
         binding.searchButton.setOnClickListener {
             viewModel.getPrice(
-                origin = binding.origin.text.toString(),
-                destination = binding.destination.text.toString(),
-                kmPrice = binding.kmPrice.text.toString(),
+                origin = binding.origin.text,
+                destination = binding.destination.text,
+                kmPrice = binding.kmPrice.text,
             )
         }
 
@@ -62,14 +61,14 @@ class DistanceSearchFragment
     }
 
     private fun setupFormTextChangedListener() {
-        binding.origin.addTextChangedListener { viewModel.setOrigin(it.toString()) }
-        binding.destination.addTextChangedListener { viewModel.setDestination(it.toString()) }
+        binding.origin.editText.addTextChangedListener { viewModel.setOrigin(it.toString()) }
+        binding.destination.editText.addTextChangedListener { viewModel.setDestination(it.toString()) }
         binding.kmPrice.run {
             setOnKeyListener { _, _, _ ->
                 viewModel.setKmPrice(binding.kmPrice.text.toString())
                 false
             }
-//            addTextChangedListener { viewModel.setKmPrice(it.toString()) }
+            editText.addTextChangedListener { viewModel.setKmPrice(it.toString()) }
             setupViewAsMoney()
         }
     }

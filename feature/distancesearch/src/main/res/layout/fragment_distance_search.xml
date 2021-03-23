@@ -25,47 +25,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/originLayout"
+            <com.github.ovelhaverde.deliverycalculator.styles.components.InputText
+                android:id="@+id/origin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/origin">
+                android:hint="@string/origin"
+                android:layout_marginBottom="8dp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/origin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/destinationLayout"
+            <com.github.ovelhaverde.deliverycalculator.styles.components.InputText
+                android:id="@+id/destination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/destination">
+                android:hint="@string/destination"
+                android:layout_marginBottom="8dp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/destination"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/kmPriceLayout"
+            <com.github.ovelhaverde.deliverycalculator.styles.components.InputText
+                android:id="@+id/kmPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:hint="@string/value_per_km">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/kmPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/value_per_km"
+                android:layout_marginBottom="8dp" />
 
             <LinearLayout
                 android:id="@+id/responseLayout"

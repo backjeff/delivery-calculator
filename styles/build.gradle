@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
 }
 
 android {
@@ -29,32 +28,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-    viewBinding {
-        enabled = true
-    }
-    buildFeatures {
-        viewBinding true
+        jvmTarget = '1.8'
     }
 }
 
 dependencies {
     implementation libraries.kotlin_stdlib
     implementation libraries.core_ktx
-    implementation libraries.koin
-    implementation libraries.koin_ext
-    implementation libraries.koin_scope
-    implementation libraries.koin_viewmodel
-    implementation libraries.koin_fragment
-    implementation libraries.koin_workmanager
-    implementation libraries.lifecycle_viewmodel
-    implementation libraries.lifecycle_viewmodel
-    implementation libraries.lifecycle_livedata
-    implementation libraries.lifecycle_viewmodel_savedinstance
-    implementation libraries.lifecycle_process
-    implementation libraries.lifecycle_reactivestreams
+    implementation libraries.androidx_appcompat
+    implementation libraries.material
 
-    api project(":domain")
-    api project(":styles")
+    implementation libraries.kotlinx_coroutines
 }

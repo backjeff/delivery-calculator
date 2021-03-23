@@ -1,3 +1,4 @@
+include ':styles'
 include ':data:local'
 include ':feature:distancesearch'
 include ':feature:splashscreen'

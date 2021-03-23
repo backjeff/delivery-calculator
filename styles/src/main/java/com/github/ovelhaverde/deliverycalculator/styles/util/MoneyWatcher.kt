@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.overlhaverde.deliverycalculator.feature.util
+package com.github.ovelhaverde.deliverycalculator.styles.util
 
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import com.github.ovelhaverde.deliverycalculator.feature.R
+import com.github.ovelhaverde.deliverycalculator.styles.R
 import java.lang.Double.*
 import java.lang.ref.WeakReference
-import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
