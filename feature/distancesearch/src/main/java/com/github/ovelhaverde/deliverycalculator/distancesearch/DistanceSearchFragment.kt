@@ -1,6 +1,5 @@
 package com.github.ovelhaverde.deliverycalculator.distancesearch
 
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -36,6 +35,7 @@ class DistanceSearchFragment
                     binding.distanceResponse.text = response.distance
                     binding.valueResponse.text = response.value
                     binding.responseLayout.isVisible = true
+                    binding.searchButton.isLoading = false
                 }
             )
 
@@ -82,10 +82,6 @@ class DistanceSearchFragment
     }
 
     override fun setRootBinding() = FragmentDistanceSearchBinding.inflate(layoutInflater)
-
-    override fun startLoading() {
-        binding.responseLayout.isVisible = false
-    }
 
     override fun onViewStateError(error: Throwable) {
         Toast.makeText(context, error.message, Toast.LENGTH_LONG).show()

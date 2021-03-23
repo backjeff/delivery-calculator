@@ -83,11 +83,10 @@
 
     </ScrollView>
 
-    <Button
+    <com.github.ovelhaverde.deliverycalculator.styles.components.ProgressButton
         android:id="@+id/searchButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

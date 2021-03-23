@@ -5,4 +5,8 @@
         <attr name="android:text" format="string" />
         <attr name="android:hint" />
     </declare-styleable>
+    <declare-styleable name="ProgressButton">
+        <attr name="isLoading" format="boolean" />
+        <attr name="android:text" format="string" />
+    </declare-styleable>
 </resources>

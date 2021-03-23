@@ -8,14 +8,17 @@ fun <T> MutableStateFlow<ViewState<T>>.postNeutral() {
 }
 
 fun <T> MutableStateFlow<ViewState<T>>.postSuccess(data: T) {
+    value = ViewState.Neutral
     value = ViewState.Success(data)
 }
 
 fun <T> MutableStateFlow<ViewState<T>>.postError(error: Throwable) {
+    value = ViewState.Neutral
     value = ViewState.Error(error)
 }
 
 fun <T> MutableStateFlow<ViewState<T>>.postError(message: String?) {
+    value = ViewState.Neutral
     value = ViewState.Error(Throwable(message))
 }
 
