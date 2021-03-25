@@ -10,4 +10,5 @@ interface SharedPreferencesDataSource {
     fun setOrigin(data: String): Flow<Unit>
     fun setDestination(data: String): Flow<Unit>
     fun setKmPrice(data: String): Flow<Unit>
+    fun setRoundDistance(data: Boolean): Flow<Unit>
 }

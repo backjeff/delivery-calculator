@@ -26,7 +26,8 @@ class SharedPreferencesDataSourceImpl(
             DistanceSearchFormData(
                 origin = preferencesHelper.getString("origin") ?: "",
                 destination = preferencesHelper.getString("destination") ?: "",
-                kmPrice = preferencesHelper.getString("kmprice") ?: ""
+                kmPrice = preferencesHelper.getString("kmprice") ?: "",
+                roundDistance = preferencesHelper.getBoolean("rounddistance"),
             )
         )
     }
@@ -46,6 +47,12 @@ class SharedPreferencesDataSourceImpl(
     override fun setKmPrice(data: String) = flow {
         emit(
             preferencesHelper.saveString("kmprice", data)
+        )
+    }
+
+    override fun setRoundDistance(data: Boolean) = flow {
+        emit(
+            preferencesHelper.saveBoolean("rounddistance", data)
         )
     }
 

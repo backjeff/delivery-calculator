@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingTop="16dp"
+    android:paddingHorizontal="16dp"
     tools:context=".DistanceSearchFragment"
     android:background="?attr/backgroundColor">
 
@@ -16,7 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="64dp"
             tools:context=".DistanceSearchFragment">
 
             <androidx.appcompat.widget.SwitchCompat
@@ -46,11 +49,37 @@
                 android:hint="@string/value_per_km"
                 android:layout_marginBottom="8dp" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="4dp">
+
+                <TextView
+                    android:text="@string/round_distance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/roundDistanceSwitch" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/roundDistanceSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
                 android:id="@+id/responseLayout"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:visibility="gone">
 
                 <TextView
@@ -63,7 +92,21 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:text="@string/duration"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/durationResponse"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"/>
 
                 <TextView
                     android:text="@string/value"
@@ -72,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/valueResponse"
-                    android:textSize="24sp"
+                    android:textSize="48sp"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -88,6 +131,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/search"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -1,15 +1,20 @@
 package com.github.overlhaverde.deliverycalculator.domain.interactor
 
-import com.github.overlhaverde.deliverycalculator.domain.interactor.FormatDistanceResponseUseCase.*
+import com.github.overlhaverde.deliverycalculator.domain.interactor.FormatDistanceResponseUseCase.Params
+import com.github.overlhaverde.deliverycalculator.domain.interactor.FormatDistanceResponseUseCase.Response
 import com.github.overlhaverde.deliverycalculator.domain.interactor.core.UseCase
 import com.github.overlhaverde.deliverycalculator.domain.model.distance.DistanceSearch
+import com.github.overlhaverde.deliverycalculator.domain.repository.ConfigurationsRepository
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import java.security.InvalidParameterException
 import java.text.NumberFormat
+import kotlin.math.roundToInt
 
 class FormatDistanceResponseUseCase(
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    private val configurationsRepository: ConfigurationsRepository
 ) : UseCase<Response, Params>(scope) {
 
     override fun run(params: Params?) = when {
@@ -19,20 +24,33 @@ class FormatDistanceResponseUseCase(
             emit(
                 Response(
                     distance = params.distanceSearch.distance.text,
-                    value = getPrice(params, params.kmPrice)
+                    duration = params.distanceSearch.duration.text,
+                    value = calculatePrice(
+                        distance = params.distanceSearch.distance.value.toDouble(),
+                        kmPrice = params.kmPrice
+                    )
                 )
             )
         }
     }
 
-    private fun getPrice(
-        params: Params,
-        kmPrice: Double
+    private suspend fun calculatePrice(
+        distance: Double, // meters
+        kmPrice: Double // cents
     ) = NumberFormat.getCurrencyInstance().run {
         maximumFractionDigits = 2
         format(
-            (params.distanceSearch.distance.value / 1000) * (kmPrice/100)
+            getProperRoundedValue(distance) * (kmPrice / 100)
         )
+    }
+
+    private suspend fun getProperRoundedValue(value: Double): Double {
+        val v = (value / 1000)
+        return if (configurationsRepository.getDistanceSearchData().first().roundDistance) {
+            v.roundToInt().toDouble()
+        } else {
+            v
+        }
     }
 
     data class Params(
@@ -42,6 +60,7 @@ class FormatDistanceResponseUseCase(
 
     data class Response(
         val distance: String,
+        val duration: String,
         val value: String,
     )
 

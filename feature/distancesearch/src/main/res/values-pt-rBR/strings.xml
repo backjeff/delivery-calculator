@@ -6,4 +6,6 @@
     <string name="search">Cacular</string>
     <string name="distance">Distância</string>
     <string name="value">Valor</string>
+    <string name="duration">Duração</string>
+    <string name="round_distance">Arredondar distância</string>
 </resources>

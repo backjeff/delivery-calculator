@@ -19,4 +19,6 @@ class ConfigurationsRepositoryImpl(
 
     override fun setKmPrice(data: String) = sharedPreferencesDataSource.setKmPrice(data)
 
+    override fun setRoundDistance(data: Boolean) = sharedPreferencesDataSource.setRoundDistance(data)
+
 }

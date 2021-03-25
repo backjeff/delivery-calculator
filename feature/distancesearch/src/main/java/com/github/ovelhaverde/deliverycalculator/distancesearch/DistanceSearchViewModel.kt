@@ -6,10 +6,7 @@ import com.github.overlhaverde.deliverycalculator.domain.interactor.FormatDistan
 import com.github.overlhaverde.deliverycalculator.domain.interactor.GetDistanceUseCase
 import com.github.overlhaverde.deliverycalculator.domain.interactor.darkmode.GetDarkModeUseCase
 import com.github.overlhaverde.deliverycalculator.domain.interactor.darkmode.SetDarkModeUseCase
-import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.GetDistanceSearchFormDataUseCase
-import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.SetDestinationUseCase
-import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.SetKmPriceUseCase
-import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.SetOriginUseCase
+import com.github.overlhaverde.deliverycalculator.domain.interactor.distancesearchform.*
 import com.github.overlhaverde.deliverycalculator.domain.model.distance.DistanceSearch
 import com.github.overlhaverde.deliverycalculator.domain.model.distance.DistanceSearchFormData
 import com.github.overlhaverde.deliverycalculator.feature.base.BaseViewModel
@@ -35,6 +32,7 @@ class DistanceSearchViewModel(
     private val setOriginUseCase: SetOriginUseCase by useCase()
     private val setDestinationUseCase: SetDestinationUseCase by useCase()
     private val setKmPriceUseCase: SetKmPriceUseCase by useCase()
+    private val setRoundDistanceUseCase: SetRoundDistanceUseCase by useCase()
 
     private val _distanceSearch = MutableStateFlow<ViewState<DistanceSearch>>(Neutral)
     val distanceSearch = _distanceSearch.asStateFlow().asLiveData()
@@ -82,6 +80,12 @@ class DistanceSearchViewModel(
                 params = SetKmPriceUseCase.Params(it)
             )
         }
+    }
+
+    fun setRoundDistance(data: Boolean) {
+        setRoundDistanceUseCase(
+            params = SetRoundDistanceUseCase.Params(data)
+        )
     }
 
     fun getPrice(

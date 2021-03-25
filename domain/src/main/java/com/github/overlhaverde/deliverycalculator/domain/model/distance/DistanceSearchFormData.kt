@@ -4,4 +4,5 @@ data class DistanceSearchFormData(
     val origin: String,
     val destination: String,
     val kmPrice: String,
+    val roundDistance: Boolean,
 )

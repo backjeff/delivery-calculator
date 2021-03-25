@@ -5,6 +5,7 @@ import com.github.overlhaverde.deliverycalculator.data.remote.core.RequestWrappe
 import com.github.overlhaverde.deliverycalculator.data.remote.mapper.googleapi.DistanceMatrixMapper
 import com.github.overlhaverde.deliverycalculator.data.remote.services.GoogleApiService
 import kotlinx.coroutines.flow.flow
+import java.util.Locale
 
 class GoogleApiDataSourceImpl(
     private val requestWrapper: RequestWrapper,
@@ -21,7 +22,7 @@ class GoogleApiDataSourceImpl(
                     googleApiService.getDistanceMatrix(
                         origins = origins,
                         destinations = destinations,
-                        language = "pt-BR",
+                        language = Locale.getDefault().language,
                         key = "AIzaSyDcxsE88c-oxVD0T7LSrRqouTRrYpY_Aws"
                     )
                 }
