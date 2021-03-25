@@ -18,13 +18,6 @@ val domainModule = module {
     }
 
     factory { (scope: CoroutineScope) ->
-        GetUser(
-            scope = scope,
-            userRepository = get()
-        )
-    }
-
-    factory { (scope: CoroutineScope) ->
         GetDistanceUseCase(
             scope = scope,
             distanceRepository = get()
