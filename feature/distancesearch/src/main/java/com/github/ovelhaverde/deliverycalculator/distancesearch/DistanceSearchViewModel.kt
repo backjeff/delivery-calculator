@@ -92,6 +92,7 @@ class DistanceSearchViewModel(
         origin: String,
         destination: String,
         kmPrice: String,
+        shouldRoundDistance: Boolean = false,
     ) {
         getDistanceUseCase(
             params = GetDistanceUseCase.Params(
@@ -101,7 +102,8 @@ class DistanceSearchViewModel(
             onSuccess = {
                 getPriceFormatted(
                     kmPrice = kmPrice,
-                    distanceSearch = it
+                    distanceSearch = it,
+                    shouldRoundDistance = shouldRoundDistance
                 )
             },
             onError = { _distanceSearch.postError(it) }
@@ -110,12 +112,14 @@ class DistanceSearchViewModel(
 
     private fun getPriceFormatted(
         kmPrice: String,
-        distanceSearch: DistanceSearch
+        distanceSearch: DistanceSearch,
+        shouldRoundDistance: Boolean,
     ) {
         formatDistanceResponseUseCase(
             params = FormatDistanceResponseUseCase.Params(
                 kmPrice = kmPrice.removeCurrencyMask()?.toDouble(),
-                distanceSearch = distanceSearch
+                distanceSearch = distanceSearch,
+                shouldRoundDistance = shouldRoundDistance
             ),
             onSuccess = { _price.postSuccess(it) },
             onError = { _price.postError(it) }

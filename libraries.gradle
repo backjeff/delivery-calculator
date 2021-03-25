@@ -44,7 +44,10 @@ ext {
             junit_ext               : "androidx.test.ext:junit:1.1.2",
             espresso                : "androidx.test.espresso:espresso-core:3.3.0",
             lifecycle_testing       : "androidx.arch.core:core-testing:$versions.arch_version",
-
+            mockk                   : "io.mockk:mockk:1.10.6",
+            mockk_android           : "io.mockk:mockk-android:1.10.6",
+            kotest_assertions       : "io.kotest:kotest-assertions-core:4.4.3",
+            kotest_property         : "io.kotest:kotest-property:4.4.3",
     ]
 
 }

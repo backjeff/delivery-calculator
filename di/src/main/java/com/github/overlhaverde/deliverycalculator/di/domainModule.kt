@@ -17,6 +17,7 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         GetDistanceUseCase(
             scope = scope,
+            contextProvider = get(),
             distanceRepository = get()
         )
     }
@@ -24,13 +25,14 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         FormatDistanceResponseUseCase(
             scope = scope,
-            configurationsRepository = get()
+            contextProvider = get()
         )
     }
 
     factory { (scope: CoroutineScope) ->
         GetDarkModeUseCase(
             scope = scope,
+            contextProvider = get(),
             configurationsRepository = get()
         )
     }
@@ -38,6 +40,7 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         SetDarkModeUseCase(
             scope = scope,
+            contextProvider = get(),
             configurationsRepository = get()
         )
     }
@@ -45,6 +48,7 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         GetDistanceSearchFormDataUseCase(
             scope = scope,
+            contextProvider = get(),
             configurationsRepository = get()
         )
     }
@@ -52,6 +56,7 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         SetDestinationUseCase(
             scope = scope,
+            contextProvider = get(),
             configurationsRepository = get()
         )
     }
@@ -59,6 +64,7 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         SetOriginUseCase(
             scope = scope,
+            contextProvider = get(),
             configurationsRepository = get()
         )
     }
@@ -66,6 +72,7 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         SetKmPriceUseCase(
             scope = scope,
+            contextProvider = get(),
             configurationsRepository = get()
         )
     }
@@ -73,6 +80,7 @@ val domainModule = module {
     factory { (scope: CoroutineScope) ->
         SetRoundDistanceUseCase(
             scope = scope,
+            contextProvider = get(),
             configurationsRepository = get()
         )
     }

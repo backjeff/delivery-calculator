@@ -13,4 +13,9 @@ dependencies {
     implementation libraries.kotlinx_coroutines
     implementation libraries.koin
     implementation libraries.koin_ext
+
+    implementation testLibraries.junit
+    implementation testLibraries.junit_ext
+    implementation testLibraries.kotest_assertions
+    implementation testLibraries.mockk
 }

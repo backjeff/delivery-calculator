@@ -4,13 +4,11 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 abstract class UseCase<T, in Params>(
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val contextProvider: CoroutineContextProvider
 ): KoinComponent {
-
-    private val contextProvider: CoroutineContextProvider by inject()
 
     abstract fun run(params: Params? = null): Flow<T>
 
@@ -32,7 +30,6 @@ abstract class UseCase<T, in Params>(
                 }
             }
         }
-
     }
 
     fun cancel() = scope.coroutineContext.cancelChildren()

@@ -54,6 +54,7 @@ class DistanceSearchFragment
                 origin = binding.origin.text,
                 destination = binding.destination.text,
                 kmPrice = binding.kmPrice.text,
+                shouldRoundDistance = binding.roundDistanceSwitch.isChecked
             )
         }
 

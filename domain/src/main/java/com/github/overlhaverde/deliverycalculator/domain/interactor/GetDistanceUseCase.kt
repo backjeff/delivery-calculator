@@ -1,6 +1,7 @@
 package com.github.overlhaverde.deliverycalculator.domain.interactor
 
 import com.github.overlhaverde.deliverycalculator.domain.interactor.GetDistanceUseCase.Params
+import com.github.overlhaverde.deliverycalculator.domain.interactor.core.CoroutineContextProvider
 import com.github.overlhaverde.deliverycalculator.domain.interactor.core.UseCase
 import com.github.overlhaverde.deliverycalculator.domain.model.distance.DistanceSearch
 import com.github.overlhaverde.deliverycalculator.domain.repository.DistanceRepository
@@ -9,8 +10,9 @@ import java.security.InvalidParameterException
 
 class GetDistanceUseCase(
     scope: CoroutineScope,
+    contextProvider: CoroutineContextProvider,
     private val distanceRepository: DistanceRepository
-) : UseCase<DistanceSearch, Params>(scope) {
+) : UseCase<DistanceSearch, Params>(scope, contextProvider) {
 
     override fun run(params: Params?) = when {
         params == null -> throw InvalidParameterException()
